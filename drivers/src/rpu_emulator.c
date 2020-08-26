@@ -19,12 +19,12 @@ unsigned int send_counter = 0;
 static dev_t dev_num = 0;
 static struct cdev *chardev_cdev = NULL;
 static struct class *chardev_class = NULL;
-static unsigned char read_buffer[READ_DATA_SIZE];
-static unsigned char write_buffer[READ_DATA_SIZE];
+// static unsigned char read_buffer[READ_DATA_SIZE];
+// static unsigned char write_buffer[READ_DATA_SIZE];
 
 char *DEVICE_NAME = "rpu_emulator";
 #define MAX_SIZE (PAGE_SIZE * 2)
-static char *sh_mem = NULL;
+static unsigned int *sh_mem = NULL;
 
 static int rpu_emulator_open(struct inode *, struct file *);
 static int rpu_emulator_close(struct inode *, struct file *);
@@ -44,28 +44,46 @@ static int rpu_emulator_close(struct inode *i, struct file *f) {
 
 static ssize_t rpu_emulator_read(struct file *f, char __user *buf, size_t len,
                                  loff_t *off) {
+  // int i = 0;
   printk(KERN_INFO "Driver: read()\n");
 
-  valid_flag = 0x01;
+  /*
+    for (i = 0; i < READ_DATA_SIZE; i++) {
+      printk("valid_flag%X %X\n", i, sh_mem[i]);
+    }
 
-  memcpy(read_buffer, &valid_flag, 4);
-  printk("valid_flag %X\n", valid_flag);
+    memcpy(write_buffer, sh_mem, READ_DATA_SIZE);
 
-  memcpy(read_buffer + 4, &receive_counter, 4);
-  printk("receive_counter %X\n", receive_counter);
+    memcpy(&valid_flag, write_buffer, 4);
+    printk("valid_flag %X\n", valid_flag);
 
-  memcpy(read_buffer + 8, &send_counter, 4);
-  printk("send_counter %X\n\n", send_counter);
+    memcpy(&receive_counter, write_buffer + 4, 4);
+    printk("receive_counter %X\n", receive_counter);
 
-  (void)copy_to_user(buf, read_buffer, READ_DATA_SIZE);
+    memcpy(&send_counter, write_buffer + 8, 4);
+    printk("send_counter %X\n\n", send_counter);
+
+    valid_flag = 0x01;
+    memcpy(read_buffer, &valid_flag, 4);
+    printk("valid_flag %X\n", valid_flag);
+
+
+      memcpy(read_buffer + 4, &receive_counter, 4);
+      printk("receive_counter %X\n", receive_counter);
+
+      memcpy(read_buffer + 8, &send_counter, 4);
+      printk("send_counter %X\n\n", send_counter);
+    */
+
+  (void)copy_to_user(buf, sh_mem, READ_DATA_SIZE);
   return READ_DATA_SIZE;
 }
 static ssize_t rpu_emulator_write(struct file *f, const char __user *buf,
                                   size_t len, loff_t *off) {
   printk(KERN_INFO "Driver: write()\n");
-  (void)copy_from_user(write_buffer, buf, WRITE_DATA_SIZE);
+  (void)copy_from_user(sh_mem, buf, WRITE_DATA_SIZE);
 
-  memcpy(&valid_flag, write_buffer, 4);
+  /*memcpy(&valid_flag, write_buffer, 4);
   printk("valid_flag %X\n", valid_flag);
 
   memcpy(&receive_counter, write_buffer + 4, 4);
@@ -74,9 +92,8 @@ static ssize_t rpu_emulator_write(struct file *f, const char __user *buf,
   memcpy(&send_counter, write_buffer + 8, 4);
   printk("send_counter %X\n\n", send_counter);
 
-  receive_counter += 1;
-  send_counter += 1;
-
+  memcpy(sh_mem, write_buffer, WRITE_DATA_SIZE);
+*/
   return WRITE_DATA_SIZE;
 }
 

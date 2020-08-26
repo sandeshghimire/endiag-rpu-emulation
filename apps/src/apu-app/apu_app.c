@@ -46,6 +46,11 @@ int main(int argc, char **argv) {
     memset(read_data, 0x00, READ_DATA_SIZE);
     read_bytes = read(fd, read_data, READ_DATA_SIZE);
 
+    if (write_bytes == READ_DATA_SIZE) {
+      printf("reading  done  \n\n\n");
+    }
+
+    printf("Reading from RPU :: \n");
     memcpy(&valid_flag, read_data, 4);
     printf("valid_flag %X\n", valid_flag);
 
@@ -58,8 +63,9 @@ int main(int argc, char **argv) {
     send_counter = receive_counter + 1;
 
     if (valid_flag) {
-      valid_flag = 0;
+      // valid_flag = 0;
 
+      printf("Writing to RPU :: \n");
       memset(write_data, 0x00, WRITE_DATA_SIZE);
       send_counter = receive_counter + 1;
 
@@ -75,7 +81,7 @@ int main(int argc, char **argv) {
       write_bytes = write(fd, write_data, WRITE_DATA_SIZE);
 
       if (write_bytes == WRITE_DATA_SIZE) {
-        printf("writing done  \n");
+        printf("writing done  \n\n\n");
       }
     }
     sleep(1);
