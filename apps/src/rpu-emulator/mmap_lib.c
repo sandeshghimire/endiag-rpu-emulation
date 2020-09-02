@@ -29,6 +29,7 @@ int init_mmap_lib() {
     perror("failed to mmap");
     return -1;
   }
+  memset(kadr, 0x00, 0x10);
 
   fprintf(stderr, "mmap_alloc: mmap OK\n");
 

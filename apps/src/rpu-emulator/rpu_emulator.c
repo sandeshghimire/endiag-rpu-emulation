@@ -15,8 +15,6 @@ int main(int argc, char** argv) {
   initialize();
 
   init_task_10ms(NULL);
-  init_task_10ms(NULL);
-  init_task_10ms(NULL);
 
   if (init_mmap_lib() > 0) {
     printf("failed to init mmap interface \n");
