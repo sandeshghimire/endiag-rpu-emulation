@@ -4,7 +4,7 @@ pipeline {
     stage('Clone') {
       steps {
         sh '''#!/bin/bash 
-        source ./bootstrap.sh 
+source ./bootstrap.sh 
       }
     }
 
