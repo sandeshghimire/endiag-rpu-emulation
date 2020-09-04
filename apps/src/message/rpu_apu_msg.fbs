@@ -1,0 +1,17 @@
+namespace Eclectic;
+
+enum Fruit : byte {
+     Banana = -1,
+     Orange = 42 
+}
+
+table FooBar {
+    id      :  int ;
+    density   : long;
+    say       : string;
+    height    : short;
+}
+
+file_identifier "ENDI";
+
+root_type FooBar;
