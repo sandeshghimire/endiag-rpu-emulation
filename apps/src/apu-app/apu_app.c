@@ -9,6 +9,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "../message/rpu_apu_msg_generated.h"
+
 #define DEVICE "/dev/rpu_emulator"
 
 #define READ_DATA_SIZE 0x10

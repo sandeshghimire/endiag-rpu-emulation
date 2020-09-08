@@ -1,5 +1,6 @@
 #include "task_10ms.h"
 
+#include "../message/rpu_apu_msg_generated.h"
 #include "mmap_lib.h"
 
 int init_task_10ms(void* user_data) { return 0; }

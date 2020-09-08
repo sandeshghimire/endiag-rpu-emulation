@@ -37,6 +37,6 @@ set(ALL_SOURCE_FILES_LIBS ${HEADER_FILES_LIBS} ${SOURCE_FILES_LIBS})
 add_executable(${PROJECT_NAME}  ${ALL_SOURCE_FILES_EXE})
 add_library(${PROJECT_NAME}_libs  ${ALL_SOURCE_FILES_LIBS})
 
-target_link_libraries(${PROJECT_NAME}   ${PROJECT_NAME}_libs pthread)
+target_link_libraries(${PROJECT_NAME}   ${PROJECT_NAME}_libs pthread  rpu_apu_msg flatccrt)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
