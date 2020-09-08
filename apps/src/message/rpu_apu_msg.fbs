@@ -1,15 +1,16 @@
-namespace Eclectic;
+namespace endiag;
 
-enum Fruit : byte {
-     Banana = -1,
-     Orange = 42 
+enum FRAME_ID : byte {
+     TASK10MS = 1,
+     TASK20MS = 1, 
+     TASK40MS = 2
 }
 
 table FooBar {
-    id      :  int ;
-    density   : long;
-    say       : string;
-    height    : short;
+    frame_id        :  FRAME_ID = TASK10MS ;
+    valid_flag      : long;
+    receive_counter : long;
+    send_counter    : long;
 }
 
 file_identifier "ENDI";

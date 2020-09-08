@@ -1261,57 +1261,60 @@ __flatbuffers_build_buffer(flatbuffers_)
 #endif
 
 
-typedef const struct Eclectic_FooBar_table *Eclectic_FooBar_table_t;
-typedef struct Eclectic_FooBar_table *Eclectic_FooBar_mutable_table_t;
-typedef const flatbuffers_uoffset_t *Eclectic_FooBar_vec_t;
-typedef flatbuffers_uoffset_t *Eclectic_FooBar_mutable_vec_t;
-#ifndef Eclectic_FooBar_file_identifier
-#define Eclectic_FooBar_file_identifier flatbuffers_identifier
+typedef const struct endiag_FooBar_table *endiag_FooBar_table_t;
+typedef struct endiag_FooBar_table *endiag_FooBar_mutable_table_t;
+typedef const flatbuffers_uoffset_t *endiag_FooBar_vec_t;
+typedef flatbuffers_uoffset_t *endiag_FooBar_mutable_vec_t;
+#ifndef endiag_FooBar_file_identifier
+#define endiag_FooBar_file_identifier flatbuffers_identifier
 #endif
-/* deprecated, use Eclectic_FooBar_file_identifier */
-#ifndef Eclectic_FooBar_identifier
-#define Eclectic_FooBar_identifier flatbuffers_identifier
+/* deprecated, use endiag_FooBar_file_identifier */
+#ifndef endiag_FooBar_identifier
+#define endiag_FooBar_identifier flatbuffers_identifier
 #endif
-#define Eclectic_FooBar_type_hash ((flatbuffers_thash_t)0xa604f58)
-#define Eclectic_FooBar_type_identifier "\x58\x4f\x60\x0a"
+#define endiag_FooBar_type_hash ((flatbuffers_thash_t)0xef8e0e54)
+#define endiag_FooBar_type_identifier "\x54\x0e\x8e\xef"
 
-typedef int8_t Eclectic_Fruit_enum_t;
-__flatbuffers_define_integer_type(Eclectic_Fruit, Eclectic_Fruit_enum_t, 8)
-#define Eclectic_Fruit_Banana ((Eclectic_Fruit_enum_t)INT8_C(-1))
-#define Eclectic_Fruit_Orange ((Eclectic_Fruit_enum_t)INT8_C(42))
+typedef int8_t endiag_FRAME_ID_enum_t;
+__flatbuffers_define_integer_type(endiag_FRAME_ID, endiag_FRAME_ID_enum_t, 8)
+#define endiag_FRAME_ID_TASK10MS ((endiag_FRAME_ID_enum_t)INT8_C(1))
+#define endiag_FRAME_ID_TASK20MS ((endiag_FRAME_ID_enum_t)INT8_C(1))
+#define endiag_FRAME_ID_TASK40MS ((endiag_FRAME_ID_enum_t)INT8_C(2))
 
-static inline const char *Eclectic_Fruit_name(Eclectic_Fruit_enum_t value)
+static inline const char *endiag_FRAME_ID_name(endiag_FRAME_ID_enum_t value)
 {
     switch (value) {
-    case Eclectic_Fruit_Banana: return "Banana";
-    case Eclectic_Fruit_Orange: return "Orange";
+    case endiag_FRAME_ID_TASK10MS: return "TASK10MS";
+    /* case endiag_FRAME_ID_TASK20MS: return "TASK20MS"; (duplicate) */
+    case endiag_FRAME_ID_TASK40MS: return "TASK40MS";
     default: return "";
     }
 }
 
-static inline int Eclectic_Fruit_is_known_value(Eclectic_Fruit_enum_t value)
+static inline int endiag_FRAME_ID_is_known_value(endiag_FRAME_ID_enum_t value)
 {
     switch (value) {
-    case Eclectic_Fruit_Banana: return 1;
-    case Eclectic_Fruit_Orange: return 1;
+    case endiag_FRAME_ID_TASK10MS: return 1;
+    /* case endiag_FRAME_ID_TASK20MS: return 1; (duplicate) */
+    case endiag_FRAME_ID_TASK40MS: return 1;
     default: return 0;
     }
 }
 
 
 
-struct Eclectic_FooBar_table { uint8_t unused__; };
+struct endiag_FooBar_table { uint8_t unused__; };
 
-static inline size_t Eclectic_FooBar_vec_len(Eclectic_FooBar_vec_t vec)
+static inline size_t endiag_FooBar_vec_len(endiag_FooBar_vec_t vec)
 __flatbuffers_vec_len(vec)
-static inline Eclectic_FooBar_table_t Eclectic_FooBar_vec_at(Eclectic_FooBar_vec_t vec, size_t i)
-__flatbuffers_offset_vec_at(Eclectic_FooBar_table_t, vec, i, 0)
-__flatbuffers_table_as_root(Eclectic_FooBar)
+static inline endiag_FooBar_table_t endiag_FooBar_vec_at(endiag_FooBar_vec_t vec, size_t i)
+__flatbuffers_offset_vec_at(endiag_FooBar_table_t, vec, i, 0)
+__flatbuffers_table_as_root(endiag_FooBar)
 
-__flatbuffers_define_scalar_field(0, Eclectic_FooBar, id, flatbuffers_int32, int32_t, INT32_C(0))
-__flatbuffers_define_scalar_field(1, Eclectic_FooBar, density, flatbuffers_int64, int64_t, INT64_C(0))
-__flatbuffers_define_string_field(2, Eclectic_FooBar, say, 0)
-__flatbuffers_define_scalar_field(3, Eclectic_FooBar, height, flatbuffers_int16, int16_t, INT16_C(0))
+__flatbuffers_define_scalar_field(0, endiag_FooBar, frame_id, endiag_FRAME_ID, endiag_FRAME_ID_enum_t, INT8_C(1))
+__flatbuffers_define_scalar_field(1, endiag_FooBar, valid_flag, flatbuffers_int64, int64_t, INT64_C(0))
+__flatbuffers_define_scalar_field(2, endiag_FooBar, receive_counter, flatbuffers_int64, int64_t, INT64_C(0))
+__flatbuffers_define_scalar_field(3, endiag_FooBar, send_counter, flatbuffers_int64, int64_t, INT64_C(0))
 
 
 #include "flatcc/flatcc_epilogue.h"
@@ -1334,48 +1337,48 @@ __flatbuffers_define_scalar_field(3, Eclectic_FooBar, height, flatbuffers_int16,
 #define flatbuffers_extension ".bin"
 #endif
 
-#define __Eclectic_Fruit_formal_args , Eclectic_Fruit_enum_t v0
-#define __Eclectic_Fruit_call_args , v0
-__flatbuffers_build_scalar(flatbuffers_, Eclectic_Fruit, Eclectic_Fruit_enum_t)
+#define __endiag_FRAME_ID_formal_args , endiag_FRAME_ID_enum_t v0
+#define __endiag_FRAME_ID_call_args , v0
+__flatbuffers_build_scalar(flatbuffers_, endiag_FRAME_ID, endiag_FRAME_ID_enum_t)
 
-static const flatbuffers_voffset_t __Eclectic_FooBar_required[] = { 0 };
-typedef flatbuffers_ref_t Eclectic_FooBar_ref_t;
-static Eclectic_FooBar_ref_t Eclectic_FooBar_clone(flatbuffers_builder_t *B, Eclectic_FooBar_table_t t);
-__flatbuffers_build_table(flatbuffers_, Eclectic_FooBar, 4)
+static const flatbuffers_voffset_t __endiag_FooBar_required[] = { 0 };
+typedef flatbuffers_ref_t endiag_FooBar_ref_t;
+static endiag_FooBar_ref_t endiag_FooBar_clone(flatbuffers_builder_t *B, endiag_FooBar_table_t t);
+__flatbuffers_build_table(flatbuffers_, endiag_FooBar, 4)
 
-#define __Eclectic_FooBar_formal_args , int32_t v0, int64_t v1, flatbuffers_string_ref_t v2, int16_t v3
-#define __Eclectic_FooBar_call_args , v0, v1, v2, v3
-static inline Eclectic_FooBar_ref_t Eclectic_FooBar_create(flatbuffers_builder_t *B __Eclectic_FooBar_formal_args);
-__flatbuffers_build_table_prolog(flatbuffers_, Eclectic_FooBar, Eclectic_FooBar_file_identifier, Eclectic_FooBar_type_identifier)
+#define __endiag_FooBar_formal_args , endiag_FRAME_ID_enum_t v0, int64_t v1, int64_t v2, int64_t v3
+#define __endiag_FooBar_call_args , v0, v1, v2, v3
+static inline endiag_FooBar_ref_t endiag_FooBar_create(flatbuffers_builder_t *B __endiag_FooBar_formal_args);
+__flatbuffers_build_table_prolog(flatbuffers_, endiag_FooBar, endiag_FooBar_file_identifier, endiag_FooBar_type_identifier)
 
-__flatbuffers_build_scalar_field(0, flatbuffers_, Eclectic_FooBar_id, flatbuffers_int32, int32_t, 4, 4, INT32_C(0), Eclectic_FooBar)
-__flatbuffers_build_scalar_field(1, flatbuffers_, Eclectic_FooBar_density, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), Eclectic_FooBar)
-__flatbuffers_build_string_field(2, flatbuffers_, Eclectic_FooBar_say, Eclectic_FooBar)
-__flatbuffers_build_scalar_field(3, flatbuffers_, Eclectic_FooBar_height, flatbuffers_int16, int16_t, 2, 2, INT16_C(0), Eclectic_FooBar)
+__flatbuffers_build_scalar_field(0, flatbuffers_, endiag_FooBar_frame_id, endiag_FRAME_ID, endiag_FRAME_ID_enum_t, 1, 1, INT8_C(1), endiag_FooBar)
+__flatbuffers_build_scalar_field(1, flatbuffers_, endiag_FooBar_valid_flag, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), endiag_FooBar)
+__flatbuffers_build_scalar_field(2, flatbuffers_, endiag_FooBar_receive_counter, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), endiag_FooBar)
+__flatbuffers_build_scalar_field(3, flatbuffers_, endiag_FooBar_send_counter, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), endiag_FooBar)
 
-static inline Eclectic_FooBar_ref_t Eclectic_FooBar_create(flatbuffers_builder_t *B __Eclectic_FooBar_formal_args)
+static inline endiag_FooBar_ref_t endiag_FooBar_create(flatbuffers_builder_t *B __endiag_FooBar_formal_args)
 {
-    if (Eclectic_FooBar_start(B)
-        || Eclectic_FooBar_density_add(B, v1)
-        || Eclectic_FooBar_id_add(B, v0)
-        || Eclectic_FooBar_say_add(B, v2)
-        || Eclectic_FooBar_height_add(B, v3)) {
+    if (endiag_FooBar_start(B)
+        || endiag_FooBar_valid_flag_add(B, v1)
+        || endiag_FooBar_receive_counter_add(B, v2)
+        || endiag_FooBar_send_counter_add(B, v3)
+        || endiag_FooBar_frame_id_add(B, v0)) {
         return 0;
     }
-    return Eclectic_FooBar_end(B);
+    return endiag_FooBar_end(B);
 }
 
-static Eclectic_FooBar_ref_t Eclectic_FooBar_clone(flatbuffers_builder_t *B, Eclectic_FooBar_table_t t)
+static endiag_FooBar_ref_t endiag_FooBar_clone(flatbuffers_builder_t *B, endiag_FooBar_table_t t)
 {
     __flatbuffers_memoize_begin(B, t);
-    if (Eclectic_FooBar_start(B)
-        || Eclectic_FooBar_density_pick(B, t)
-        || Eclectic_FooBar_id_pick(B, t)
-        || Eclectic_FooBar_say_pick(B, t)
-        || Eclectic_FooBar_height_pick(B, t)) {
+    if (endiag_FooBar_start(B)
+        || endiag_FooBar_valid_flag_pick(B, t)
+        || endiag_FooBar_receive_counter_pick(B, t)
+        || endiag_FooBar_send_counter_pick(B, t)
+        || endiag_FooBar_frame_id_pick(B, t)) {
         return 0;
     }
-    __flatbuffers_memoize_end(B, t, Eclectic_FooBar_end(B));
+    __flatbuffers_memoize_end(B, t, endiag_FooBar_end(B));
 }
 
 #include "flatcc/flatcc_epilogue.h"
@@ -1391,36 +1394,36 @@ static Eclectic_FooBar_ref_t Eclectic_FooBar_clone(flatbuffers_builder_t *B, Ecl
 #include "flatcc/flatcc_verifier.h"
 #include "flatcc/flatcc_prologue.h"
 
-static int Eclectic_FooBar_verify_table(flatcc_table_verifier_descriptor_t *td);
+static int endiag_FooBar_verify_table(flatcc_table_verifier_descriptor_t *td);
 
-static int Eclectic_FooBar_verify_table(flatcc_table_verifier_descriptor_t *td)
+static int endiag_FooBar_verify_table(flatcc_table_verifier_descriptor_t *td)
 {
     int ret;
-    if ((ret = flatcc_verify_field(td, 0, 4, 4) /* id */)) return ret;
-    if ((ret = flatcc_verify_field(td, 1, 8, 8) /* density */)) return ret;
-    if ((ret = flatcc_verify_string_field(td, 2, 0) /* say */)) return ret;
-    if ((ret = flatcc_verify_field(td, 3, 2, 2) /* height */)) return ret;
+    if ((ret = flatcc_verify_field(td, 0, 1, 1) /* frame_id */)) return ret;
+    if ((ret = flatcc_verify_field(td, 1, 8, 8) /* valid_flag */)) return ret;
+    if ((ret = flatcc_verify_field(td, 2, 8, 8) /* receive_counter */)) return ret;
+    if ((ret = flatcc_verify_field(td, 3, 8, 8) /* send_counter */)) return ret;
     return flatcc_verify_ok;
 }
 
-static inline int Eclectic_FooBar_verify_as_root(const void *buf, size_t bufsiz)
+static inline int endiag_FooBar_verify_as_root(const void *buf, size_t bufsiz)
 {
-    return flatcc_verify_table_as_root(buf, bufsiz, Eclectic_FooBar_identifier, &Eclectic_FooBar_verify_table);
+    return flatcc_verify_table_as_root(buf, bufsiz, endiag_FooBar_identifier, &endiag_FooBar_verify_table);
 }
 
-static inline int Eclectic_FooBar_verify_as_typed_root(const void *buf, size_t bufsiz)
+static inline int endiag_FooBar_verify_as_typed_root(const void *buf, size_t bufsiz)
 {
-    return flatcc_verify_table_as_root(buf, bufsiz, Eclectic_FooBar_type_identifier, &Eclectic_FooBar_verify_table);
+    return flatcc_verify_table_as_root(buf, bufsiz, endiag_FooBar_type_identifier, &endiag_FooBar_verify_table);
 }
 
-static inline int Eclectic_FooBar_verify_as_root_with_identifier(const void *buf, size_t bufsiz, const char *fid)
+static inline int endiag_FooBar_verify_as_root_with_identifier(const void *buf, size_t bufsiz, const char *fid)
 {
-    return flatcc_verify_table_as_root(buf, bufsiz, fid, &Eclectic_FooBar_verify_table);
+    return flatcc_verify_table_as_root(buf, bufsiz, fid, &endiag_FooBar_verify_table);
 }
 
-static inline int Eclectic_FooBar_verify_as_root_with_type_hash(const void *buf, size_t bufsiz, flatbuffers_thash_t thash)
+static inline int endiag_FooBar_verify_as_root_with_type_hash(const void *buf, size_t bufsiz, flatbuffers_thash_t thash)
 {
-    return flatcc_verify_table_as_typed_root(buf, bufsiz, thash, &Eclectic_FooBar_verify_table);
+    return flatcc_verify_table_as_typed_root(buf, bufsiz, thash, &endiag_FooBar_verify_table);
 }
 
 #include "flatcc/flatcc_epilogue.h"
