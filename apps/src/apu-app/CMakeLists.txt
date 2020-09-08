@@ -18,6 +18,6 @@ set(ALL_SOURCE_FILES_EXE ${HEADER_FILES_EXE} ${SOURCE_FILES_EXE})
 
 add_executable(${PROJECT_NAME}  ${ALL_SOURCE_FILES_EXE})
 
-target_link_libraries(${PROJECT_NAME} rpu_apu_msg flatccrt)
+target_link_libraries(${PROJECT_NAME} apu_msg rpu_msg flatccrt)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)

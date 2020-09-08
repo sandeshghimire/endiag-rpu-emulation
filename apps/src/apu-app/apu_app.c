@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   int ret;
   void *buf;
   size_t size;
-  flatcc_builder_t builder, *B;
+  flatcc_builder_t builder, *rpu_message;
 
   (void)argc;
   (void)argv;
@@ -46,8 +46,8 @@ int main(int argc, char **argv) {
     printf("module %s cannot open \n", DEVICE);
   }
 
-  B = &builder;
-  flatcc_builder_init(B);
+  rpu_message = &builder;
+  flatcc_builder_init(rpu_message);
 
   unsigned char *read_data =
       (unsigned char *)malloc(READ_DATA_SIZE * sizeof(char));
