@@ -21,9 +21,10 @@ mkdir -p $PRJ_ROOT_DIR/install
 cd $DRIVERS
 make
 make install
-cd $PRJ_ROOT_DIR
+cd $PRJ_ROOT_DIR/apps/src/message
+./build.sh
+cd $PRJ_ROOT_DIR/apps
 
-cd apps
 mkdir -p build
 cd build
 cmake ..

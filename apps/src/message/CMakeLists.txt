@@ -1,13 +1,20 @@
-set(INC_DIR "${PROJECT_SOURCE_DIR}/include")
-set(GEN_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
-set(FBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+cmake_minimum_required(VERSION 3.3)
+project(rpu_apu_msg)
 
-include_directories("${GEN_DIR}" "${INC_DIR}")
-add_custom_target(gen_rpu_emulator_fbs ALL) 
+list(
+        APPEND HEADER_FILES_LIBS
+        rpu_apu_msg_generated.h 
 
-add_custom_command (
-    TARGET gen_rpu_emulator_fbs
-    COMMAND cmake -E make_directory "${GEN_DIR}"
-    COMMAND flatcc_cli -a -o "${GEN_DIR}" "${FBS_DIR}/monster.fbs"
-    DEPENDS flatcc_cli "${FBS_DIR}/monster.fbs" 
 )
+
+list(
+        APPEND SOURCE_FILES_LIBS
+        rpu_apu_msg_generated.c
+
+)
+
+set(ALL_SOURCE_FILES_LIBS ${HEADER_FILES_LIBS} ${SOURCE_FILES_LIBS})
+add_library(${PROJECT_NAME}  ${ALL_SOURCE_FILES_LIBS})
+
+#target_link_libraries(${PROJECT_NAME}   flatccrt)
+

@@ -7,6 +7,7 @@ A Sample RPU emulation project for Xilinx Zynq MPSOC
 run build script from the git root dir
 
 ```
+./bootstrap.sh
 ./build.sh
 ```
 
