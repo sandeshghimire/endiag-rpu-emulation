@@ -1,17 +1,19 @@
 #!/bin/sh
-cd $(dirname $0)
 
 FLATBUFFERS_DIR=../../../protocol_buffer/flatcc/
-NAME=rpu_apu_msg
-SCHEMA=rpu_apu_msg.fbs
-OUT=build
+RPU_APU=rpu_apu_msg
+APU_RPU=apu_rpu_msg
 
-FLATCC_EXE=$FLATBUFFERS_DIR/bin/flatcc
-FLATCC_INCLUDE=$FLATBUFFERS_DIR/include
-FLATCC_LIB=$FLATBUFFERS_DIR/lib
+RPU_APU_SCHEMA=rpu_apu_msg.fbs
+APU_RPU_SCHEMA=apu_rpu_msg.fbs
+
+FLATCC_EXE=flatcc
 
 rm -f -r *.h *.c
 touch rpu_apu_msg_generated.c
-$FLATCC_EXE --outfile ${NAME}_generated.h -a $SCHEMA || exit 1
+touch apu_rpu_msg_generated.c
 
-#cc -I$FLATCC_INCLUDE -g -o $OUT/$NAME $NAME.c -L$FLATCC_LIB -lflatccrt || exit 1
+$FLATCC_EXE --outfile ${RPU_APU}_generated.h -a $RPU_APU_SCHEMA || exit 1
+$FLATCC_EXE --outfile ${APU_RPU}_generated.h -a $APU_RPU_SCHEMA || exit 1
+
+#cc -I$FLATCC_INCLUDE -g -o $OUT/$RPU_APU $RPU_APU.c -L$FLATCC_LIB -lflatccrt || exit 1

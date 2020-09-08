@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(rpu_apu_msg)
+project(msg)
 
 list(
         APPEND HEADER_FILES_LIBS

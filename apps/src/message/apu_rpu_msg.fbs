@@ -6,7 +6,7 @@ enum FRAME_ID : byte {
      TASK40MS = 2
 }
 
-table rpu_msg {
+table apu_msg {
     frame_id        :  FRAME_ID = TASK10MS ;
     valid_flag      : long;
     receive_counter : long;
@@ -15,4 +15,4 @@ table rpu_msg {
 
 file_identifier "endi";
 
-root_type rpu_msg;
+root_type apu_msg;

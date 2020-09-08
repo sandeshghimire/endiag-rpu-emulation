@@ -2,6 +2,7 @@
 #include "apu_app.h"
 
 #include <fcntl.h>
+#include <flatcc/support/hexdump.h>
 #include <malloc.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,9 +25,16 @@ unsigned int send_counter = 0;
 
 int main(int argc, char **argv) {
   int write_length = 0;
-
   ssize_t read_bytes;
   ssize_t write_bytes;
+
+  int ret;
+  void *buf;
+  size_t size;
+  flatcc_builder_t builder, *B;
+
+  (void)argc;
+  (void)argv;
 
   if (access(DEVICE, F_OK) == -1) {
     printf("module %s not loaded\n", DEVICE);
@@ -37,6 +45,9 @@ int main(int argc, char **argv) {
   if (fd < 0) {
     printf("module %s cannot open \n", DEVICE);
   }
+
+  B = &builder;
+  flatcc_builder_init(B);
 
   unsigned char *read_data =
       (unsigned char *)malloc(READ_DATA_SIZE * sizeof(char));
