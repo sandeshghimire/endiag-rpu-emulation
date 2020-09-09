@@ -3,7 +3,10 @@
 #include "../message/rpu_apu_msg_generated.h"
 #include "mmap_lib.h"
 
-int init_task_10ms(void* user_data) { return 0; }
+int init_task_10ms(void* user_data) {
+  printf("Init 10 ms Task\n");
+  return 0;
+}
 
 void task_10ms(size_t timer_id, void* user_data) {
   printf("10 ms Task\n");
@@ -17,6 +20,11 @@ void task_10ms(size_t timer_id, void* user_data) {
     printf("Rading rx counter  %X\n", get_receive_counter());
     set_send_counter(get_receive_counter() + 1);
     set_receive_flag();
-    printf("Sending to tx counter  %X\n", get_receive_counter() + 1);
+    tx_fb_message();
+
+    if (get_rx_message_ready()) {
+      rx_fb_message();
+      printf("Sending to tx counter  %X\n", get_receive_counter() + 1);
+    }
   }
 }

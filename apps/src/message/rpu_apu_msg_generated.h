@@ -1261,60 +1261,60 @@ __flatbuffers_build_buffer(flatbuffers_)
 #endif
 
 
-typedef const struct endiag_rpu_msg_table *endiag_rpu_msg_table_t;
-typedef struct endiag_rpu_msg_table *endiag_rpu_msg_mutable_table_t;
-typedef const flatbuffers_uoffset_t *endiag_rpu_msg_vec_t;
-typedef flatbuffers_uoffset_t *endiag_rpu_msg_mutable_vec_t;
-#ifndef endiag_rpu_msg_file_identifier
-#define endiag_rpu_msg_file_identifier flatbuffers_identifier
+typedef const struct rpu_rpu_msg_table *rpu_rpu_msg_table_t;
+typedef struct rpu_rpu_msg_table *rpu_rpu_msg_mutable_table_t;
+typedef const flatbuffers_uoffset_t *rpu_rpu_msg_vec_t;
+typedef flatbuffers_uoffset_t *rpu_rpu_msg_mutable_vec_t;
+#ifndef rpu_rpu_msg_file_identifier
+#define rpu_rpu_msg_file_identifier flatbuffers_identifier
 #endif
-/* deprecated, use endiag_rpu_msg_file_identifier */
-#ifndef endiag_rpu_msg_identifier
-#define endiag_rpu_msg_identifier flatbuffers_identifier
+/* deprecated, use rpu_rpu_msg_file_identifier */
+#ifndef rpu_rpu_msg_identifier
+#define rpu_rpu_msg_identifier flatbuffers_identifier
 #endif
-#define endiag_rpu_msg_type_hash ((flatbuffers_thash_t)0x2a8a1990)
-#define endiag_rpu_msg_type_identifier "\x90\x19\x8a\x2a"
+#define rpu_rpu_msg_type_hash ((flatbuffers_thash_t)0xae9370cb)
+#define rpu_rpu_msg_type_identifier "\xcb\x70\x93\xae"
 
-typedef int8_t endiag_FRAME_ID_enum_t;
-__flatbuffers_define_integer_type(endiag_FRAME_ID, endiag_FRAME_ID_enum_t, 8)
-#define endiag_FRAME_ID_TASK10MS ((endiag_FRAME_ID_enum_t)INT8_C(1))
-#define endiag_FRAME_ID_TASK20MS ((endiag_FRAME_ID_enum_t)INT8_C(1))
-#define endiag_FRAME_ID_TASK40MS ((endiag_FRAME_ID_enum_t)INT8_C(2))
+typedef int8_t rpu_FRAME_ID_enum_t;
+__flatbuffers_define_integer_type(rpu_FRAME_ID, rpu_FRAME_ID_enum_t, 8)
+#define rpu_FRAME_ID_TASK10MS ((rpu_FRAME_ID_enum_t)INT8_C(1))
+#define rpu_FRAME_ID_TASK20MS ((rpu_FRAME_ID_enum_t)INT8_C(1))
+#define rpu_FRAME_ID_TASK40MS ((rpu_FRAME_ID_enum_t)INT8_C(2))
 
-static inline const char *endiag_FRAME_ID_name(endiag_FRAME_ID_enum_t value)
+static inline const char *rpu_FRAME_ID_name(rpu_FRAME_ID_enum_t value)
 {
     switch (value) {
-    case endiag_FRAME_ID_TASK10MS: return "TASK10MS";
-    /* case endiag_FRAME_ID_TASK20MS: return "TASK20MS"; (duplicate) */
-    case endiag_FRAME_ID_TASK40MS: return "TASK40MS";
+    case rpu_FRAME_ID_TASK10MS: return "TASK10MS";
+    /* case rpu_FRAME_ID_TASK20MS: return "TASK20MS"; (duplicate) */
+    case rpu_FRAME_ID_TASK40MS: return "TASK40MS";
     default: return "";
     }
 }
 
-static inline int endiag_FRAME_ID_is_known_value(endiag_FRAME_ID_enum_t value)
+static inline int rpu_FRAME_ID_is_known_value(rpu_FRAME_ID_enum_t value)
 {
     switch (value) {
-    case endiag_FRAME_ID_TASK10MS: return 1;
-    /* case endiag_FRAME_ID_TASK20MS: return 1; (duplicate) */
-    case endiag_FRAME_ID_TASK40MS: return 1;
+    case rpu_FRAME_ID_TASK10MS: return 1;
+    /* case rpu_FRAME_ID_TASK20MS: return 1; (duplicate) */
+    case rpu_FRAME_ID_TASK40MS: return 1;
     default: return 0;
     }
 }
 
 
 
-struct endiag_rpu_msg_table { uint8_t unused__; };
+struct rpu_rpu_msg_table { uint8_t unused__; };
 
-static inline size_t endiag_rpu_msg_vec_len(endiag_rpu_msg_vec_t vec)
+static inline size_t rpu_rpu_msg_vec_len(rpu_rpu_msg_vec_t vec)
 __flatbuffers_vec_len(vec)
-static inline endiag_rpu_msg_table_t endiag_rpu_msg_vec_at(endiag_rpu_msg_vec_t vec, size_t i)
-__flatbuffers_offset_vec_at(endiag_rpu_msg_table_t, vec, i, 0)
-__flatbuffers_table_as_root(endiag_rpu_msg)
+static inline rpu_rpu_msg_table_t rpu_rpu_msg_vec_at(rpu_rpu_msg_vec_t vec, size_t i)
+__flatbuffers_offset_vec_at(rpu_rpu_msg_table_t, vec, i, 0)
+__flatbuffers_table_as_root(rpu_rpu_msg)
 
-__flatbuffers_define_scalar_field(0, endiag_rpu_msg, frame_id, endiag_FRAME_ID, endiag_FRAME_ID_enum_t, INT8_C(1))
-__flatbuffers_define_scalar_field(1, endiag_rpu_msg, valid_flag, flatbuffers_int64, int64_t, INT64_C(0))
-__flatbuffers_define_scalar_field(2, endiag_rpu_msg, receive_counter, flatbuffers_int64, int64_t, INT64_C(0))
-__flatbuffers_define_scalar_field(3, endiag_rpu_msg, send_counter, flatbuffers_int64, int64_t, INT64_C(0))
+__flatbuffers_define_scalar_field(0, rpu_rpu_msg, frame_id, rpu_FRAME_ID, rpu_FRAME_ID_enum_t, INT8_C(1))
+__flatbuffers_define_scalar_field(1, rpu_rpu_msg, valid_flag, flatbuffers_uint32, uint32_t, UINT32_C(0))
+__flatbuffers_define_scalar_field(2, rpu_rpu_msg, receive_counter, flatbuffers_uint32, uint32_t, UINT32_C(0))
+__flatbuffers_define_scalar_field(3, rpu_rpu_msg, send_counter, flatbuffers_uint32, uint32_t, UINT32_C(0))
 
 
 #include "flatcc/flatcc_epilogue.h"
@@ -1337,48 +1337,48 @@ __flatbuffers_define_scalar_field(3, endiag_rpu_msg, send_counter, flatbuffers_i
 #define flatbuffers_extension ".bin"
 #endif
 
-#define __endiag_FRAME_ID_formal_args , endiag_FRAME_ID_enum_t v0
-#define __endiag_FRAME_ID_call_args , v0
-__flatbuffers_build_scalar(flatbuffers_, endiag_FRAME_ID, endiag_FRAME_ID_enum_t)
+#define __rpu_FRAME_ID_formal_args , rpu_FRAME_ID_enum_t v0
+#define __rpu_FRAME_ID_call_args , v0
+__flatbuffers_build_scalar(flatbuffers_, rpu_FRAME_ID, rpu_FRAME_ID_enum_t)
 
-static const flatbuffers_voffset_t __endiag_rpu_msg_required[] = { 0 };
-typedef flatbuffers_ref_t endiag_rpu_msg_ref_t;
-static endiag_rpu_msg_ref_t endiag_rpu_msg_clone(flatbuffers_builder_t *B, endiag_rpu_msg_table_t t);
-__flatbuffers_build_table(flatbuffers_, endiag_rpu_msg, 4)
+static const flatbuffers_voffset_t __rpu_rpu_msg_required[] = { 0 };
+typedef flatbuffers_ref_t rpu_rpu_msg_ref_t;
+static rpu_rpu_msg_ref_t rpu_rpu_msg_clone(flatbuffers_builder_t *B, rpu_rpu_msg_table_t t);
+__flatbuffers_build_table(flatbuffers_, rpu_rpu_msg, 4)
 
-#define __endiag_rpu_msg_formal_args , endiag_FRAME_ID_enum_t v0, int64_t v1, int64_t v2, int64_t v3
-#define __endiag_rpu_msg_call_args , v0, v1, v2, v3
-static inline endiag_rpu_msg_ref_t endiag_rpu_msg_create(flatbuffers_builder_t *B __endiag_rpu_msg_formal_args);
-__flatbuffers_build_table_prolog(flatbuffers_, endiag_rpu_msg, endiag_rpu_msg_file_identifier, endiag_rpu_msg_type_identifier)
+#define __rpu_rpu_msg_formal_args , rpu_FRAME_ID_enum_t v0, uint32_t v1, uint32_t v2, uint32_t v3
+#define __rpu_rpu_msg_call_args , v0, v1, v2, v3
+static inline rpu_rpu_msg_ref_t rpu_rpu_msg_create(flatbuffers_builder_t *B __rpu_rpu_msg_formal_args);
+__flatbuffers_build_table_prolog(flatbuffers_, rpu_rpu_msg, rpu_rpu_msg_file_identifier, rpu_rpu_msg_type_identifier)
 
-__flatbuffers_build_scalar_field(0, flatbuffers_, endiag_rpu_msg_frame_id, endiag_FRAME_ID, endiag_FRAME_ID_enum_t, 1, 1, INT8_C(1), endiag_rpu_msg)
-__flatbuffers_build_scalar_field(1, flatbuffers_, endiag_rpu_msg_valid_flag, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), endiag_rpu_msg)
-__flatbuffers_build_scalar_field(2, flatbuffers_, endiag_rpu_msg_receive_counter, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), endiag_rpu_msg)
-__flatbuffers_build_scalar_field(3, flatbuffers_, endiag_rpu_msg_send_counter, flatbuffers_int64, int64_t, 8, 8, INT64_C(0), endiag_rpu_msg)
+__flatbuffers_build_scalar_field(0, flatbuffers_, rpu_rpu_msg_frame_id, rpu_FRAME_ID, rpu_FRAME_ID_enum_t, 1, 1, INT8_C(1), rpu_rpu_msg)
+__flatbuffers_build_scalar_field(1, flatbuffers_, rpu_rpu_msg_valid_flag, flatbuffers_uint32, uint32_t, 4, 4, UINT32_C(0), rpu_rpu_msg)
+__flatbuffers_build_scalar_field(2, flatbuffers_, rpu_rpu_msg_receive_counter, flatbuffers_uint32, uint32_t, 4, 4, UINT32_C(0), rpu_rpu_msg)
+__flatbuffers_build_scalar_field(3, flatbuffers_, rpu_rpu_msg_send_counter, flatbuffers_uint32, uint32_t, 4, 4, UINT32_C(0), rpu_rpu_msg)
 
-static inline endiag_rpu_msg_ref_t endiag_rpu_msg_create(flatbuffers_builder_t *B __endiag_rpu_msg_formal_args)
+static inline rpu_rpu_msg_ref_t rpu_rpu_msg_create(flatbuffers_builder_t *B __rpu_rpu_msg_formal_args)
 {
-    if (endiag_rpu_msg_start(B)
-        || endiag_rpu_msg_valid_flag_add(B, v1)
-        || endiag_rpu_msg_receive_counter_add(B, v2)
-        || endiag_rpu_msg_send_counter_add(B, v3)
-        || endiag_rpu_msg_frame_id_add(B, v0)) {
+    if (rpu_rpu_msg_start(B)
+        || rpu_rpu_msg_valid_flag_add(B, v1)
+        || rpu_rpu_msg_receive_counter_add(B, v2)
+        || rpu_rpu_msg_send_counter_add(B, v3)
+        || rpu_rpu_msg_frame_id_add(B, v0)) {
         return 0;
     }
-    return endiag_rpu_msg_end(B);
+    return rpu_rpu_msg_end(B);
 }
 
-static endiag_rpu_msg_ref_t endiag_rpu_msg_clone(flatbuffers_builder_t *B, endiag_rpu_msg_table_t t)
+static rpu_rpu_msg_ref_t rpu_rpu_msg_clone(flatbuffers_builder_t *B, rpu_rpu_msg_table_t t)
 {
     __flatbuffers_memoize_begin(B, t);
-    if (endiag_rpu_msg_start(B)
-        || endiag_rpu_msg_valid_flag_pick(B, t)
-        || endiag_rpu_msg_receive_counter_pick(B, t)
-        || endiag_rpu_msg_send_counter_pick(B, t)
-        || endiag_rpu_msg_frame_id_pick(B, t)) {
+    if (rpu_rpu_msg_start(B)
+        || rpu_rpu_msg_valid_flag_pick(B, t)
+        || rpu_rpu_msg_receive_counter_pick(B, t)
+        || rpu_rpu_msg_send_counter_pick(B, t)
+        || rpu_rpu_msg_frame_id_pick(B, t)) {
         return 0;
     }
-    __flatbuffers_memoize_end(B, t, endiag_rpu_msg_end(B));
+    __flatbuffers_memoize_end(B, t, rpu_rpu_msg_end(B));
 }
 
 #include "flatcc/flatcc_epilogue.h"
@@ -1394,36 +1394,36 @@ static endiag_rpu_msg_ref_t endiag_rpu_msg_clone(flatbuffers_builder_t *B, endia
 #include "flatcc/flatcc_verifier.h"
 #include "flatcc/flatcc_prologue.h"
 
-static int endiag_rpu_msg_verify_table(flatcc_table_verifier_descriptor_t *td);
+static int rpu_rpu_msg_verify_table(flatcc_table_verifier_descriptor_t *td);
 
-static int endiag_rpu_msg_verify_table(flatcc_table_verifier_descriptor_t *td)
+static int rpu_rpu_msg_verify_table(flatcc_table_verifier_descriptor_t *td)
 {
     int ret;
     if ((ret = flatcc_verify_field(td, 0, 1, 1) /* frame_id */)) return ret;
-    if ((ret = flatcc_verify_field(td, 1, 8, 8) /* valid_flag */)) return ret;
-    if ((ret = flatcc_verify_field(td, 2, 8, 8) /* receive_counter */)) return ret;
-    if ((ret = flatcc_verify_field(td, 3, 8, 8) /* send_counter */)) return ret;
+    if ((ret = flatcc_verify_field(td, 1, 4, 4) /* valid_flag */)) return ret;
+    if ((ret = flatcc_verify_field(td, 2, 4, 4) /* receive_counter */)) return ret;
+    if ((ret = flatcc_verify_field(td, 3, 4, 4) /* send_counter */)) return ret;
     return flatcc_verify_ok;
 }
 
-static inline int endiag_rpu_msg_verify_as_root(const void *buf, size_t bufsiz)
+static inline int rpu_rpu_msg_verify_as_root(const void *buf, size_t bufsiz)
 {
-    return flatcc_verify_table_as_root(buf, bufsiz, endiag_rpu_msg_identifier, &endiag_rpu_msg_verify_table);
+    return flatcc_verify_table_as_root(buf, bufsiz, rpu_rpu_msg_identifier, &rpu_rpu_msg_verify_table);
 }
 
-static inline int endiag_rpu_msg_verify_as_typed_root(const void *buf, size_t bufsiz)
+static inline int rpu_rpu_msg_verify_as_typed_root(const void *buf, size_t bufsiz)
 {
-    return flatcc_verify_table_as_root(buf, bufsiz, endiag_rpu_msg_type_identifier, &endiag_rpu_msg_verify_table);
+    return flatcc_verify_table_as_root(buf, bufsiz, rpu_rpu_msg_type_identifier, &rpu_rpu_msg_verify_table);
 }
 
-static inline int endiag_rpu_msg_verify_as_root_with_identifier(const void *buf, size_t bufsiz, const char *fid)
+static inline int rpu_rpu_msg_verify_as_root_with_identifier(const void *buf, size_t bufsiz, const char *fid)
 {
-    return flatcc_verify_table_as_root(buf, bufsiz, fid, &endiag_rpu_msg_verify_table);
+    return flatcc_verify_table_as_root(buf, bufsiz, fid, &rpu_rpu_msg_verify_table);
 }
 
-static inline int endiag_rpu_msg_verify_as_root_with_type_hash(const void *buf, size_t bufsiz, flatbuffers_thash_t thash)
+static inline int rpu_rpu_msg_verify_as_root_with_type_hash(const void *buf, size_t bufsiz, flatbuffers_thash_t thash)
 {
-    return flatcc_verify_table_as_typed_root(buf, bufsiz, thash, &endiag_rpu_msg_verify_table);
+    return flatcc_verify_table_as_typed_root(buf, bufsiz, thash, &rpu_rpu_msg_verify_table);
 }
 
 #include "flatcc/flatcc_epilogue.h"

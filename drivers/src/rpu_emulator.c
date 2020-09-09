@@ -9,8 +9,12 @@
 #include <linux/slab.h>
 #include <linux/uaccess.h>
 
-#define READ_DATA_SIZE 0x10
-#define WRITE_DATA_SIZE 0x10
+#define READ_DATA_SIZE 0x100
+#define WRITE_DATA_SIZE 0x100
+
+#define METADATA_OFFSET 0x00
+#define APU_MESSAGE_OFFSET 0x100 / 4
+#define RPU_MESSAGE_OFFSET 0x200 / 4
 
 unsigned int valid_flag = 0;
 unsigned int receive_counter = 0;
@@ -75,13 +79,13 @@ static ssize_t rpu_emulator_read(struct file *f, char __user *buf, size_t len,
       printk("send_counter %X\n\n", send_counter);
     */
 
-  (void)copy_to_user(buf, sh_mem, READ_DATA_SIZE);
+  (void)copy_to_user(buf, (sh_mem + APU_MESSAGE_OFFSET), READ_DATA_SIZE);
   return READ_DATA_SIZE;
 }
 static ssize_t rpu_emulator_write(struct file *f, const char __user *buf,
                                   size_t len, loff_t *off) {
   printk(KERN_INFO "Driver: write()\n");
-  (void)copy_from_user(sh_mem, buf, WRITE_DATA_SIZE);
+  (void)copy_from_user((sh_mem + RPU_MESSAGE_OFFSET), buf, WRITE_DATA_SIZE);
 
   /*memcpy(&valid_flag, write_buffer, 4);
   printk("valid_flag %X\n", valid_flag);
@@ -144,6 +148,7 @@ static int mchar_mmap(struct file *filp, struct vm_area_struct *vma) {
     ret = -EINVAL;
     goto out;
   }
+  printk(KERN_ERR "chardev: mapping size %lu\n", size);
 
   page = virt_to_page((unsigned long)sh_mem + (vma->vm_pgoff << PAGE_SHIFT));
   ret = remap_pfn_range(vma, vma->vm_start, page_to_pfn(page), size,

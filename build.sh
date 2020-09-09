@@ -16,9 +16,11 @@ cd $PRJ_ROOT_DIR
 if [ -d $PRJ_ROOT_DIR/install ]; then
     rm -f -r $PRJ_ROOT_DIR/install
 fi
+
 mkdir -p $PRJ_ROOT_DIR/install
 
 cd $DRIVERS
+make clean
 make
 make install
 cd $PRJ_ROOT_DIR/apps/src/message

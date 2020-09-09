@@ -1,4 +1,4 @@
-namespace endiag;
+namespace apu;
 
 enum FRAME_ID : byte {
      TASK10MS = 1,

@@ -1,4 +1,4 @@
-namespace endiag;
+namespace rpu;
 
 enum FRAME_ID : byte {
      TASK10MS = 1,
@@ -8,9 +8,9 @@ enum FRAME_ID : byte {
 
 table rpu_msg {
     frame_id        :  FRAME_ID = TASK10MS ;
-    valid_flag      : long;
-    receive_counter : long;
-    send_counter    : long;
+    valid_flag      : uint ;
+    receive_counter : uint ;
+    send_counter    : uint ;
 }
 
 file_identifier "endi";
