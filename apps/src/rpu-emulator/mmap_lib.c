@@ -84,7 +84,7 @@ void rx_fb_message() {
 }
 
 void tx_fb_message() {
-  rpu_rpu_msg_table_t rpu_msg = rpu_rpu_msg_as_root(tx_buffer);
+    rpu_rpu_msg_table_t rpu_msg = rpu_rpu_msg_as_root(tx_buffer);
   // memcpy(write_data, &valid_flag, 4);
   printf("valid_flag %X\n", valid_flag);
   rpu_rpu_msg_valid_flag_add(rpu_message, valid_flag);
