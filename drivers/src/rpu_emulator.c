@@ -13,8 +13,8 @@
 #define WRITE_DATA_SIZE 0x100
 
 #define METADATA_OFFSET 0x00
-#define APU_MESSAGE_OFFSET 0x100 / 4
-#define RPU_MESSAGE_OFFSET 0x200 / 4
+#define APU_MESSAGE_OFFSET 0x100
+#define RPU_MESSAGE_OFFSET 0x200
 
 unsigned int valid_flag = 0;
 unsigned int receive_counter = 0;
@@ -52,9 +52,7 @@ static ssize_t rpu_emulator_read(struct file *f, char __user *buf, size_t len,
   printk(KERN_INFO "Driver: read()\n");
 
   /*
-    for (i = 0; i < READ_DATA_SIZE; i++) {
-      printk("valid_flag%X %X\n", i, sh_mem[i]);
-    }
+
 
     memcpy(write_buffer, sh_mem, READ_DATA_SIZE);
 
@@ -79,13 +77,28 @@ static ssize_t rpu_emulator_read(struct file *f, char __user *buf, size_t len,
       printk("send_counter %X\n\n", send_counter);
     */
 
+#ifdef __DEBUG__
+
+  printk("T2\n");
+  for (i = 0; i < 30; i++) {
+    printk("%X %X", sh_mem[i + APU_MESSAGE_OFFSET], i);
+  }
+#endif /*__DEBUG__ */
+
   (void)copy_to_user(buf, (sh_mem + APU_MESSAGE_OFFSET), READ_DATA_SIZE);
+  memset((sh_mem + APU_MESSAGE_OFFSET), 0x00, READ_DATA_SIZE);
   return READ_DATA_SIZE;
 }
 static ssize_t rpu_emulator_write(struct file *f, const char __user *buf,
                                   size_t len, loff_t *off) {
+  int i = 0;
   printk(KERN_INFO "Driver: write()\n");
   (void)copy_from_user((sh_mem + RPU_MESSAGE_OFFSET), buf, WRITE_DATA_SIZE);
+
+  printk("T2\n");
+  for (i = 0; i < 30; i++) {
+    printk("%X %X", sh_mem[i + RPU_MESSAGE_OFFSET], i);
+  }
 
   /*memcpy(&valid_flag, write_buffer, 4);
   printk("valid_flag %X\n", valid_flag);

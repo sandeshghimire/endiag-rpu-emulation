@@ -13,6 +13,6 @@ table rpu_msg {
     send_counter    : uint ;
 }
 
-file_identifier "endi";
+file_identifier "diag";
 
 root_type rpu_msg;

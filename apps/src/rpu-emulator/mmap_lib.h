@@ -12,6 +12,7 @@ void clear_receive_flag();
 void set_receive_flag();
 
 unsigned int get_receive_counter();
+unsigned int get_send_counter();
 void set_send_counter(unsigned int counter);
 
 void rx_fb_message();

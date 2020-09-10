@@ -15,6 +15,11 @@
 
 #define DEVICE "/dev/rpu_emulator"
 
+#define __DEBUG__ 0
+
+#undef ns
+#define ns(x) FLATBUFFERS_WRAP_NAMESPACE(rpu, x)  // Specified in the schema
+
 #define READ_DATA_SIZE 0x1024
 #define WRITE_DATA_SIZE 0x1024
 
@@ -26,12 +31,13 @@ unsigned int send_counter = 0;
 
 int main(int argc, char **argv) {
   int write_length = 0;
-  ssize_t read_bytes;
-  ssize_t write_bytes;
+  ssize_t read_bytes = 0;
+  ssize_t write_bytes = 0;
 
   int ret;
-  void *buffer;
+  char *buffer;
   size_t size;
+  int i;
 
   flatcc_builder_t rpu_builder, *rpu_message;
   flatcc_builder_t apu_builder, *apu_message;
@@ -62,64 +68,73 @@ int main(int argc, char **argv) {
   unsigned char *write_data =
       (unsigned char *)malloc(WRITE_DATA_SIZE * sizeof(char));
 #endif
-
+  static unsigned long int frame = 0;
   for (;;) {
-    buffer = (unsigned char *)malloc(READ_DATA_SIZE * sizeof(char));
+    system("clear");
+    printf("T%lu\n", frame++);
+    buffer = (char *)malloc(READ_DATA_SIZE * sizeof(char));
     memset(buffer, 0x00, READ_DATA_SIZE);
-
     read_bytes = read(fd, buffer, READ_DATA_SIZE);
-
-    printf("reading  bytes %lu done  \n\n\n", read_bytes);
-
+    // printf("reading  bytes %lu done  \n\n\n", read_bytes);
     printf("Reading from RPU :: \n");
 
-    rpu_rpu_msg_table_t rpu_msg = rpu_rpu_msg_as_root(buffer);
+    ns(rpu_msg_table_t) mesg = ns(
+        rpu_msg_as_root_with_identifier(buffer, ns(rpu_msg_file_identifier)));
 
-    // memcpy(&valid_flag, read_data, 4);
-    valid_flag = rpu_rpu_msg_valid_flag_get(rpu_msg);
-    printf("valid_flag %X\n", valid_flag);
+    if (!mesg) {
+      printf("the data is  not avaliable\n");
+#if __DEBUG__
+      for (i = 0; i < read_bytes; i++) {
+        printf("%X ", buffer[i]);
+      }
+      printf("\n");
+#endif /*__DEBUG__*/
 
-    // memcpy(&receive_counter, read_data + 4, 4);
-    receive_counter = rpu_rpu_msg_receive_counter_get(rpu_msg);
-    printf("receive_counter %X\n", receive_counter);
+    } else {
+#if __DEBUG__
+      printf("the data is  not avaliable\n");
+      for (i = 0; i < read_bytes; i++) {
+        printf("%X ", buffer[i]);
+      }
+      printf("\n");
+#endif /*__DEBUG__*/
 
-    // memcpy(&send_counter, read_data + 8, 4);
-    send_counter = rpu_rpu_msg_send_counter_get(rpu_msg);
-    printf("send_counter %X\n\n", send_counter);
-
-    send_counter = receive_counter + 1;
-
-    if (valid_flag) {
-      printf("Writing to RPU :: \n");
-      valid_flag = 0;
-      apu_apu_msg_start_as_root(apu_message);
-      // memset(write_data, 0x00, WRITE_DATA_SIZE);
+      valid_flag = ns(rpu_msg_valid_flag(mesg));
+      receive_counter = ns(rpu_msg_receive_counter(mesg));
+      send_counter = ns(rpu_msg_send_counter(mesg));
       send_counter = receive_counter + 1;
 
-      // memcpy(write_data, &valid_flag, 4);
       printf("valid_flag %X\n", valid_flag);
-      apu_apu_msg_valid_flag_add(apu_message, valid_flag);
-
-      // memcpy(write_data + 4, &receive_counter, 4);
       printf("receive_counter %X\n", receive_counter);
-      apu_apu_msg_receive_counter_add(apu_message, receive_counter);
-
-      // memcpy(write_data + 8, &send_counter, 4);
       printf("send_counter %X\n\n", send_counter);
-      apu_apu_msg_send_counter_add(apu_message, send_counter);
 
-      buffer = flatcc_builder_finalize_buffer(apu_message, &size);
+      if (valid_flag) {
+        printf("Writing to RPU :: \n");
 
-      write_bytes = write(fd, buffer, size);
+        valid_flag = 0;
+        flatcc_builder_init(apu_message);
+        apu_apu_msg_start_as_root(apu_message);
 
-      if (write_bytes == size) {
+        send_counter = receive_counter + 1;
+        receive_counter = send_counter + 1;
+        apu_apu_msg_valid_flag_add(apu_message, valid_flag);
+        apu_apu_msg_receive_counter_add(apu_message, receive_counter);
+        apu_apu_msg_send_counter_add(apu_message, send_counter);
+        rpu_rpu_msg_end_as_root(apu_message);
+
+        printf("valid_flag %X\n", valid_flag);
+        printf("receive_counter %X\n", receive_counter);
+        printf("send_counter %X\n\n", send_counter);
+
+        buffer = flatcc_builder_finalize_buffer(apu_message, &size);
+        printf("Sending bytes %lu\n", size);
+        write_bytes = write(fd, buffer, size);
+        flatcc_builder_clear(apu_message);
         printf("writing done  \n\n\n");
       }
     }
     sleep(1);
   }
-
   close(fd);
-
   return 0;
 }

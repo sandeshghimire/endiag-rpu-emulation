@@ -1255,7 +1255,7 @@ __flatbuffers_build_buffer(flatbuffers_)
 #endif
 #include "flatcc/flatcc_prologue.h"
 #undef flatbuffers_identifier
-#define flatbuffers_identifier "endi"
+#define flatbuffers_identifier "diag"
 #ifndef flatbuffers_extension
 #define flatbuffers_extension ".bin"
 #endif
@@ -1332,7 +1332,7 @@ __flatbuffers_define_scalar_field(3, rpu_rpu_msg, send_counter, flatbuffers_uint
 #endif
 #include "flatcc/flatcc_prologue.h"
 #undef flatbuffers_identifier
-#define flatbuffers_identifier "endi"
+#define flatbuffers_identifier "diag"
 #ifndef flatbuffers_extension
 #define flatbuffers_extension ".bin"
 #endif

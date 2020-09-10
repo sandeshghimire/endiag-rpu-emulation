@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     return -1;
   }
 
-  timer1 = start_timer(500, task_10ms, TIMER_PERIODIC, NULL);
+  timer1 = start_timer(1500, task_10ms, TIMER_PERIODIC, NULL);
   // timer2 = start_timer(100, task_20ms, TIMER_PERIODIC, NULL);
   // timer3 = start_timer(2000, task_40ms, TIMER_PERIODIC, NULL);
 

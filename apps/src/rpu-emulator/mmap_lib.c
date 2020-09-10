@@ -8,6 +8,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#undef ns
+#define ns(x) FLATBUFFERS_WRAP_NAMESPACE(apu, x)  // Specified in the schema
+
 #include "../message/apu_rpu_msg_generated.h"
 #include "../message/rpu_apu_msg_generated.h"
 
@@ -25,13 +28,13 @@ static int fd;
 unsigned int *kadr;
 
 int ret;
-void *rx_buffer;
-void *tx_buffer;
+char *rx_buffer;
+char *tx_buffer;
 size_t size;
 
-static unsigned int valid_flag = 0;
-static unsigned int receive_counter = 0;
-static unsigned int send_counter = 0;
+static unsigned int valid_flag = 0x01;
+static unsigned int receive_counter = 0x00;
+static unsigned int send_counter = 0x00;
 
 flatcc_builder_t rpu_builder, *rpu_message;
 flatcc_builder_t apu_builder, *apu_message;
@@ -55,36 +58,42 @@ int init_mmap_lib() {
 
   fprintf(stderr, "mmap_alloc: mmap OK\n");
 
-  rpu_message = &rpu_builder;
-  flatcc_builder_init(rpu_message);
-
   apu_message = &apu_builder;
   flatcc_builder_init(apu_message);
 
-  rx_buffer = (unsigned char *)(kadr + APU_MESSAGE_OFFSET);
-  tx_buffer = (unsigned char *)(kadr + RPU_MESSAGE_OFFSET);
+  rx_buffer = (unsigned char *)(kadr + RPU_MESSAGE_OFFSET);
+  tx_buffer = (unsigned char *)(kadr + APU_MESSAGE_OFFSET);
 
   return 0;
 }
 
 void rx_fb_message() {
-  apu_apu_msg_table_t apu_msg = apu_apu_msg_as_root(rx_buffer);
+  ns(apu_msg_table_t) apu_msg = ns(apu_msg_as_root(rx_buffer));
 
-  // memcpy(&valid_flag, read_data, 4);
-  valid_flag = apu_apu_msg_valid_flag_get(apu_msg);
-  printf("valid_flag %X\n", valid_flag);
+  if (!apu_msg) {
+    printf("message is not available \n");
+  } else {
+    // memcpy(&valid_flag, read_data, 4);
+    valid_flag = ns(apu_msg_valid_flag(apu_msg));
+    printf("valid_flag %X\n", valid_flag);
 
-  // memcpy(&receive_counter, read_data + 4, 4);
-  receive_counter = apu_apu_msg_receive_counter_get(apu_msg);
-  printf("receive_counter %X\n", receive_counter);
+    // memcpy(&receive_counter, read_data + 4, 4);
+    receive_counter = ns(apu_msg_receive_counter(apu_msg));
+    printf("receive_counter %X\n", receive_counter);
 
-  // memcpy(&send_counter, read_data + 8, 4);
-  send_counter = apu_apu_msg_send_counter_get(apu_msg);
-  printf("send_counter %X\n\n", send_counter);
+    // memcpy(&send_counter, read_data + 8, 4);
+    send_counter = ns(apu_msg_send_counter(apu_msg));
+    printf("send_counter %X\n\n", send_counter);
+    memset(rx_buffer, 0x00, READ_DATA_SIZE);
+  }
 }
 
 void tx_fb_message() {
-    rpu_rpu_msg_table_t rpu_msg = rpu_rpu_msg_as_root(tx_buffer);
+  rpu_message = &rpu_builder;
+  flatcc_builder_init(rpu_message);
+  void *buf;
+  size_t size;
+  rpu_rpu_msg_start_as_root(rpu_message);
   // memcpy(write_data, &valid_flag, 4);
   printf("valid_flag %X\n", valid_flag);
   rpu_rpu_msg_valid_flag_add(rpu_message, valid_flag);
@@ -94,8 +103,17 @@ void tx_fb_message() {
   rpu_rpu_msg_receive_counter_add(rpu_message, receive_counter);
 
   // memcpy(write_data + 8, &send_counter, 4);
+
+  send_counter = receive_counter + 1;
   printf("send_counter %X\n\n", send_counter);
   rpu_rpu_msg_send_counter_add(rpu_message, send_counter);
+
+  rpu_rpu_msg_end_as_root(rpu_message);
+
+  buf = flatcc_builder_get_direct_buffer(rpu_message, &size);
+  memcpy(tx_buffer, buf, size);
+  printf("Sending bytes %lu\n", size);
+  flatcc_builder_clear(rpu_message);
 }
 
 int cleanup_mmap_lib() {
@@ -106,6 +124,7 @@ int cleanup_mmap_lib() {
 
 unsigned int get_receive_flag() { return valid_flag; }
 unsigned int get_receive_counter() { return receive_counter; }
+unsigned int get_send_counter() { return send_counter; }
 
 void set_send_counter(unsigned int counter) { send_counter = counter; }
 void clear_receive_flag() { valid_flag = 0x00; }
